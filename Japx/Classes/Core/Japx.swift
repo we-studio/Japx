@@ -254,7 +254,7 @@ private extension Japx.Decoder {
         let isObject = jsonApiInput.object(forKey: Consts.APIKeys.data) is NSDictionary
         if isObject && dataObjects.count == 1 {
             jsonApi.setObject(objects[dataObjects[0]]!, forKey: Consts.APIKeys.data as NSCopying)
-        } else {
+        } else if !dataObjects.isEmpty {
             jsonApi.setObject(dataObjects.map { objects[$0]! }, forKey: Consts.APIKeys.data as NSCopying)
         }
         jsonApi.removeObject(forKey: Consts.APIKeys.included)
