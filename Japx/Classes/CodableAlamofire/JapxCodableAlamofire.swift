@@ -21,8 +21,8 @@ extension Request {
     ///
     /// - returns: The result data type.
     public static func serializeResponseCodableJSONAPI<T: Decodable>(response: HTTPURLResponse?, data: Data?, error: Error?, includeList: String?, keyPath: String?, decoder: JapxDecoder) -> Result<T> {
-        guard error == nil else { return .failure(error!) }
-        
+        if let error = error { return .failure(error) }
+
         guard let validData = data, validData.count > 0 else {
             return .failure(AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
         }
